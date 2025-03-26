@@ -91,7 +91,7 @@ function handleOperatorClick(event) {
 // Handle equals button click
 function handleEqualsClick() {
     // Prevent calculation if missing values
-    if (firstOperand === null || !currentOperator) return;
+    if (firstOperand === null || !currentOperator || waitingForSecondOperand) return;
 
     const inputValue = parseFloat(currentInput);
     const result = operate(currentOperator, firstOperand, inputValue);
