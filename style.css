@@ -45,3 +45,8 @@ button.clear {
 button.no-func{
     border: none;
 }
+
+.highlight {
+    opacity: 0.8;
+    color: white;
+}

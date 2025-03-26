@@ -61,6 +61,7 @@ function handleDigitClick(event) {
     if (waitingForSecondOperand) {
         currentInput = digit;
         waitingForSecondOperand = false;
+        removeHighlight(); // Remove highlight once the user enters the second number
     } else {
         // Append the digit to the current input or replace '0'
         currentInput = currentInput === '0' ? digit : currentInput + digit;
@@ -72,6 +73,13 @@ function handleDigitClick(event) {
 // Handle operator button click
 function handleOperatorClick(event) {
     const inputValue = parseFloat(currentInput); // Convert input to number
+
+    // Prevent repeated operators without a second operand
+    if (waitingForSecondOperand) {
+        currentOperator = event.target.textContent;
+        highlightOperator(event.target);
+        return;
+    }
 
     if (firstOperand === null) {
         firstOperand = inputValue; // Store first number
@@ -86,6 +94,7 @@ function handleOperatorClick(event) {
     // Store the chosen operator and prepare for the second number
     currentOperator = event.target.textContent;
     waitingForSecondOperand = true;
+    highlightOperator(event.target); // Highlight the clicked operator
 }
 
 // Handle equals button click
@@ -103,6 +112,7 @@ function handleEqualsClick() {
     waitingForSecondOperand = true;
 
     updateDisplay();
+    removeHighlight(); // Remove highlight after calculation
 }
 
 // Handle clear button click - Reset everything
@@ -112,6 +122,20 @@ function handleClearClick() {
     currentOperator = null;
     waitingForSecondOperand = false;
     updateDisplay();
+    removeHighlight(); // Remove highlight when cleared
+}
+
+// Function to highlight the selected operator
+function highlightOperator(selectedButton) {
+    // Remove any previous highlights
+    operatorButtons.forEach(button => button.classList.remove('highlight'));
+    
+    // Add highlight to the selected operator
+    selectedButton.classList.add('highlight');
+}
+
+function removeHighlight() {
+    operatorButtons.forEach(button => button.classList.remove('highlight'));
 }
 
 // Event Listeners
