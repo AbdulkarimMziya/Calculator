@@ -66,9 +66,27 @@ function handleDigitClick(event) {
 }
 
 function handleOperatorClick(event) {
+    const inputValue = parseFloat(currentInput);
+
+    if (firstOperand === null) {
+        firstOperand = inputValue;
+    }
+    else if (currentOperator) {
+        const result = operate(currentOperator, firstOperand, inputValue);
+        currentInput = String(result);
+        firstOperand = result;
+        updateDisplay();
+    }
+
+    currentOperator = event.target.textContent;
+    waitingForSecondOperand = true;
 }
 
 // Add event listeners to each digit button
 digitButtons.forEach((button) => {
     button.addEventListener('click',handleDigitClick)
-  });
+});
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', handleOperatorClick);
+});
