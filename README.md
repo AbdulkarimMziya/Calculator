@@ -19,5 +19,5 @@ Feel free to contribute and improve the calculator app. If you encounter any iss
 
 
 ## Images
-<img src="./img/calc_img.png" alt="Your Image"/>
+<img src="./img/calc_img.png" alt="Your Image" width="300px"/>
 
