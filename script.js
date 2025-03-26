@@ -35,6 +35,7 @@ function operate(operator, a, b) {
 const digitButtons = document.querySelectorAll(".digit");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelectorAll(".equals");
+const clearButton = document.querySelector(".clear");
 const display = document.querySelector(".display");
 
 // Calculator state
@@ -103,6 +104,17 @@ function handleEqualsClick() {
     updateDisplay();
 }
 
+
+// Clear button click handler
+function handleClearClick() {
+    currentInput = "0";
+    firstOperand = null;
+    currentOperator = null;
+    waitingForSecondOperand = false;
+    updateDisplay();
+}
+
+
 // Add event listeners to each digit button
 digitButtons.forEach((button) => {
     button.addEventListener('click',handleDigitClick)
@@ -113,3 +125,4 @@ operatorButtons.forEach(button => {
 });
 
 equalsButton.addEventListener('click', handleEqualsClick);
+clearButton.addEventListener('click', handleClearClick);
