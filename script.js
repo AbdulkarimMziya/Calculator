@@ -82,6 +82,27 @@ function handleOperatorClick(event) {
     waitingForSecondOperand = true;
 }
 
+// Equals button click handler
+function handleEqualsClick() {
+    // Edge Case: Exit if there's nothing to calculate
+    // (no first number stored or no operator selected)
+    if (firstOperand === null || !currentOperator) return;
+
+    // Convert the current display value from string to number
+    const inputValue = parseFloat(currentInput);
+
+    // Perform the calculation using the stored operator and operands
+    const result = operate(currentOperator, firstOperand, inputValue);
+
+    // Update calculator state:
+    currentInput = String(result);
+    firstOperand = null;
+    currentOperator = null;
+    waitingForSecondOperand = true;
+
+    updateDisplay();
+}
+
 // Add event listeners to each digit button
 digitButtons.forEach((button) => {
     button.addEventListener('click',handleDigitClick)
@@ -90,3 +111,5 @@ digitButtons.forEach((button) => {
 operatorButtons.forEach(button => {
     button.addEventListener('click', handleOperatorClick);
 });
+
+equalsButton.addEventListener('click', handleEqualsClick);
