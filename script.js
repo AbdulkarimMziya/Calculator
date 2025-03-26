@@ -33,12 +33,20 @@ function operate(operator, a, b) {
 
 // Select all digit buttons
 const digitButtons = document.querySelectorAll(".digit");
+const operatorButtons = document.querySelectorAll(".operator");
+const equalsButton = document.querySelectorAll(".equals");
 const display = document.querySelector(".display");
 
-// Add event listeners to each digit button
-digitButtons.forEach((button) => {
-  button.addEventListener('click',handleDigitClick)
-});
+// Calculator state
+let firstOperand = null;
+let currentOperator = null;
+let waitingForSecondOperand = false;
+let currentInput = "0";
+
+// Update the display
+function updateDisplay() {
+    display.textContent = currentInput;
+}
 
 function handleDigitClick(event) {
     // Get the digit from the button's text content
@@ -46,13 +54,21 @@ function handleDigitClick(event) {
   
     console.log("Type before update:", typeof display.textContent);
   
-    // Update the display
-    if (display.textContent === '0') {
-        display.textContent = digit;
+    // If waitingForSecondOperand is true (after an operator was clicked)
+    if (waitingForSecondOperand) {
+        currentInput = digit
+        waitingForSecondOperand = false;
     } else {
-        display.textContent += digit;
+        currentInput = (currentInput === '0' ? digit : currentInput + digit)
     }
     
-    // console.log(digit);
-    console.log(typeof display.textContent);
+   updateDisplay();
 }
+
+function handleOperatorClick(event) {
+}
+
+// Add event listeners to each digit button
+digitButtons.forEach((button) => {
+    button.addEventListener('click',handleDigitClick)
+  });
