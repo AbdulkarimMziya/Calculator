@@ -14,7 +14,7 @@ function multiply(a, b) {
 // Division function with zero-check to prevent errors
 function divide(a, b) {
     if (b === 0) {
-        return 0; // Return 0 instead of dividing by zero
+        return NaN; // Return 0 instead of dividing by zero
     }
     return a / b;
 }
