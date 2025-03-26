@@ -1,26 +1,27 @@
-function add(a,b){
+// Functions for basic arithmetic operations
+function add(a, b) {
     return a + b;
 }
-  
-function subtract(a,b){
+
+function subtract(a, b) {
     return a - b;
 }
-  
-function multiply(a,b){
+
+function multiply(a, b) {
     return a * b;
 }
-  
-function divide(a,b){
-    if(b === 0){
-        return 0;
+
+// Division function with zero-check to prevent errors
+function divide(a, b) {
+    if (b === 0) {
+        return 0; // Return 0 instead of dividing by zero
     }
     return a / b;
 }
 
-
-// Function to perform an operation based on the given operator and operands
+// Perform an operation based on the given operator and operands
 function operate(operator, a, b) {
-    switch(operator) {
+    switch (operator) {
         case '+':
             return add(a, b);
         case '-':
@@ -30,75 +31,72 @@ function operate(operator, a, b) {
         case '/':
             return divide(a, b);
         default:
-            throw new Error('Unknown operator');
+            throw new Error('Unknown operator'); // Error for invalid operator
     }
 }
 
-// Select all digit buttons
+// Select DOM elements
 const digitButtons = document.querySelectorAll(".digit");
 const operatorButtons = document.querySelectorAll(".operator");
-const equalsButton = document.querySelectorAll(".equals");
+const equalsButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
 const display = document.querySelector(".display");
 
-// Calculator state
-let firstOperand = null;
-let currentOperator = null;
-let waitingForSecondOperand = false;
-let currentInput = "0";
+// Calculator state variables
+let firstOperand = null;            // Stores the first number
+let currentOperator = null;         // Stores the current operator
+let waitingForSecondOperand = false; // Tracks if waiting for second number input
+let currentInput = "0";              // Tracks the current number being displayed
 
-// Update the display
+// Update the display with the current input value
 function updateDisplay() {
     display.textContent = currentInput;
 }
 
+// Handle digit button click
 function handleDigitClick(event) {
-    // Get the digit from the button's text content
-    const digit = event.target.textContent;
-  
-    console.log("Type before update:", typeof display.textContent);
-  
-    // If waitingForSecondOperand is true (after an operator was clicked)
+    const digit = event.target.textContent; // Get the clicked digit
+    
+    // Check if the display needs to be reset for a new number
     if (waitingForSecondOperand) {
-        currentInput = digit
+        currentInput = digit;
         waitingForSecondOperand = false;
     } else {
-        currentInput = (currentInput === '0' ? digit : currentInput + digit)
+        // Append the digit to the current input or replace '0'
+        currentInput = currentInput === '0' ? digit : currentInput + digit;
     }
     
-   updateDisplay();
+    updateDisplay(); // Update the screen with the new input
 }
 
+// Handle operator button click
 function handleOperatorClick(event) {
-    const inputValue = parseFloat(currentInput);
+    const inputValue = parseFloat(currentInput); // Convert input to number
 
     if (firstOperand === null) {
-        firstOperand = inputValue;
-    }
-    else if (currentOperator) {
+        firstOperand = inputValue; // Store first number
+    } else if (currentOperator) {
+        // Perform calculation if both operands and an operator exist
         const result = operate(currentOperator, firstOperand, inputValue);
-        currentInput = String(result);
-        firstOperand = result;
+        currentInput = String(result); // Convert result to string for display
+        firstOperand = result; // Use result as the next input
         updateDisplay();
     }
 
+    // Store the chosen operator and prepare for the second number
     currentOperator = event.target.textContent;
     waitingForSecondOperand = true;
 }
 
-// Equals button click handler
+// Handle equals button click
 function handleEqualsClick() {
-    // Edge Case: Exit if there's nothing to calculate
-    // (no first number stored or no operator selected)
+    // Prevent calculation if missing values
     if (firstOperand === null || !currentOperator) return;
 
-    // Convert the current display value from string to number
     const inputValue = parseFloat(currentInput);
-
-    // Perform the calculation using the stored operator and operands
     const result = operate(currentOperator, firstOperand, inputValue);
 
-    // Update calculator state:
+    // Display result and reset state
     currentInput = String(result);
     firstOperand = null;
     currentOperator = null;
@@ -107,8 +105,7 @@ function handleEqualsClick() {
     updateDisplay();
 }
 
-
-// Clear button click handler
+// Handle clear button click - Reset everything
 function handleClearClick() {
     currentInput = "0";
     firstOperand = null;
@@ -117,10 +114,9 @@ function handleClearClick() {
     updateDisplay();
 }
 
-
-// Add event listeners to each digit button
+// Event Listeners
 digitButtons.forEach((button) => {
-    button.addEventListener('click',handleDigitClick)
+    button.addEventListener('click', handleDigitClick);
 });
 
 operatorButtons.forEach(button => {
