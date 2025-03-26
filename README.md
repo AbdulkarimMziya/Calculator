@@ -10,7 +10,7 @@ A basic calculator web application built with React. This calculator allows user
 
 ## Usage
 
-1. Clone the repository: `git clone https://github.com/your-username/calculator-app.git`
+1. Clone the repository: `git clone https://github.com/AbdulkarimMziya/Calculator.git`
 2. Navigate to the project folder: `cd calculator`
 3. Open VS Code: `code .`
 4. Open onto browser `open index.html` or `open -a "Google Chrome" index.html`
