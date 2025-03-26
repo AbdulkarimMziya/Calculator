@@ -1,6 +1,8 @@
 # Calculator App
 
-A basic calculator web application built with React. This calculator allows users to perform arithmetic operations such as addition, subtraction, multiplication, and division. It also includes features like percentage calculation and the ability to clear or delete the last entry.
+A basic calculator web application built with React. This calculator allows users to perform arithmetic operations such as addition, subtraction, multiplication, and division.
+
+## [Live View](https://abdulkarimmziya.github.io/Calculator/)
 
 
 ## Technologies Used
