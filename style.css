@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+  
+.calculator {
+    background: #aaa;
+    width: 350px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+  
+.display {
+    background: #eee;
+    padding: 4px;
+    height: 80px;
+    margin-bottom: 8px;
+    text-align: right;
+    font-size: 30px;
+    border-radius: 4px;
+}
+  
+.buttons {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+button {
+    height: 82px;
+    aspect-ratio: 1;
+    font-size: 18px;
+    cursor: pointer;
+}
+  
+button.operator, .equals {
+    background: orange;
+}
+  
+button.clear {
+    background: red;
+}
+  
+button.no-func{
+    border: none;
+}
